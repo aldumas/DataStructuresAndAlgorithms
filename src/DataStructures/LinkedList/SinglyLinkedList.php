@@ -151,15 +151,11 @@ class SinglyLinkedList
             return null;
 
         $before = $this->head;
-        $nodes = $this->nodes(); // Generator
-        
-        for ($nodes->next(); // move past head so it will not be returned in loop
-             $nodes->valid();
-             $nodes->next())
-        {
-            $node = $nodes->current();
+
+        for ($node = $this->head->next; !is_null($node); $node = $node->next) {
             if ($node->data === $item)
                 return $before;
+
             $before = $node;
         }
 
