@@ -124,13 +124,13 @@ class SinglyLinkedList
             return $removed_item;
         }
 
-        $before_node = $this->find_node_before($item, $this->head);
+        $start = $this->find_node_before($item, $this->head);
 
-        if (is_null($before_node))
+        if (is_null($start))
             return null;
 
-        $removed_item = $before_node->next->data;
-        $before_node->next = $before_node->next->next;
+        $removed_item = $start->next->data;
+        $start->next = $start->next->next;
 
         return $removed_item;
     }
@@ -157,6 +157,28 @@ class SinglyLinkedList
 
     public function remove_all($item) : int
     {
+        $count = 0;
 
+        // first remove all matching items from beginning of the list
+        // so that head points to either null or the first non-matching
+        // item.
+        while (!is_null($this->head) && $this->first() === $item) {
+            ++$count;
+            $this->head = $this->head->next;
+        }
+
+        // $start is either null or the first non-matching node
+        $start = $this->head; 
+
+        while (true) {
+            $start = $this->find_node_before($item, $start);
+
+            if (is_null($start)) break;
+
+            ++$count;
+            $start->next = $start->next->next;
+        }
+
+        return $count;
     }
 }

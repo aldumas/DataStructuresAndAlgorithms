@@ -197,4 +197,29 @@ final class SinglyLinkedListTest extends TestCase
 
         $this->assertNull($item);
     }
+
+    public function testRemoveAllReturnsZeroIfNoMatchingItems() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'c']);
+        $removed_count = $list->remove_all('d');
+
+        $this->assertEquals(0, $removed_count);
+    }
+
+    public function testRemoveAllReturnsNumberOfRemovedItems() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'c', 'b', 'd']);
+        $removed_count = $list->remove_all('b');
+
+        $this->assertEquals(2, $removed_count);
+    }
+
+    public function testRemoveAllCanRemoveItemsFromStartAndEndOfList() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'a', 'b', 'a', 'a', 'c', 'a', 'a']);
+        $removed_count = $list->remove_all('a');
+
+        $this->assertEquals(6, $removed_count);
+        $this->assertEquals(['b', 'c'], $list->to_array());
+    }
 }
