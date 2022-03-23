@@ -64,8 +64,6 @@ class SinglyLinkedList
         return $this->last_node()->data;
     }
 
-    // TODO methods to remove items
-
     public static function from_array($arr)
     {
         $node = null;
@@ -126,7 +124,7 @@ class SinglyLinkedList
             return $removed_item;
         }
 
-        $before_node = $this->find_node_before($item);
+        $before_node = $this->find_node_before($item, $this->head);
 
         if (is_null($before_node))
             return null;
@@ -137,15 +135,17 @@ class SinglyLinkedList
         return $removed_item;
     }
 
-    private function find_node_before($item) : ?ForwardNode
+    // Find the first node after $start which has $item and return the node
+    // before it
+    private function find_node_before($item, ?ForwardNode $start) : ?ForwardNode
     {
-        // there's no node before an empty list or a list with only 1 node
-        if (is_null($this->head) || is_null($this->head->next))
+        // $start is the first possible node we could return
+        if (is_null($start) || is_null($start->next))
             return null;
 
-        $before = $this->head;
+        $before = $start;
 
-        for ($node = $this->head->next; !is_null($node); $node = $node->next) {
+        for ($node = $start->next; !is_null($node); $node = $node->next) {
             if ($node->data === $item)
                 return $before;
 
@@ -153,5 +153,10 @@ class SinglyLinkedList
         }
 
         return null;
+    }
+
+    public function remove_all($item) : int
+    {
+
     }
 }
