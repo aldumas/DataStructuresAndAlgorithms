@@ -122,4 +122,19 @@ final class SinglyLinkedListTest extends TestCase
 
         $this->assertEquals($arr, $list->to_array());
     }
+
+    public function testCountReturnsZeroForEmptyList() : void
+    {
+        $list = new SinglyLinkedList();
+
+        $this->assertEquals(0, $list->count());
+    }
+
+    public function testCountReturnsCorrectCountForNonEmptyList() : void
+    {
+        $arr = ['a', 'b', 'c'];
+        $list = SinglyLinkedList::from_array($arr);
+
+        $this->assertEquals(count($arr), $list->count());
+    }
 }

@@ -87,4 +87,15 @@ class SinglyLinkedList
             $arr[] = $item;
         return $arr;
     }
+
+    public function count() : int
+    {
+        $count = 0;
+
+        foreach ($this->items() as $_) {
+            ++$count;
+        }
+
+        return $count;
+    }
 }
