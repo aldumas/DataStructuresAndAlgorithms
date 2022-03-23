@@ -117,24 +117,22 @@ class ForwardList
 
     public function remove_one($item) : mixed
     {
-        if (is_null($this->head))
-            return null;
+        // So we don't need to treat the head node as special, we add one.
+        $faux_head = new ForwardNode(null, $this->head);
 
-        if ($this->first() === $item) {
-            $removed_item = $this->first();
-            $this->head = $this->head->next;
-            return $removed_item;
+        $before = $this->find_node_before($item, $faux_head);
+
+        if (is_null($before)) {
+            return null;
         }
 
-        $before = $this->find_node_before($item, $this->head);
-
-        if (is_null($before))
-            return null;
-
-        $removed_item = $before->next->data;
+        $data = $before->next->data;
         $before->next = $before->next->next;
+        
+        // Update head since the previous one may have been removed.
+        $this->head = $faux_head->next;
 
-        return $removed_item;
+        return $data;
     }
 
     // Find the first node after $before which has $item and return the node
