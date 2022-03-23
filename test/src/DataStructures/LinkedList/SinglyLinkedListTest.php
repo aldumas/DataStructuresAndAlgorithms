@@ -121,5 +121,5 @@ final class SinglyLinkedListTest extends TestCase
         $list = SinglyLinkedList::from_array($arr);
 
         $this->assertEquals($arr, $list->to_array());
-    } 
+    }
 }

@@ -45,7 +45,7 @@ class SinglyLinkedList
     public function items()
     {
         for ($node = $this->head; !is_null($node); $node = $node->next) {
-            yield $node->data;
+            yield $node->data; // PHP also makes a sequential key available to caller
         }
     }
 
