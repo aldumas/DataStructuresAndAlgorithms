@@ -44,8 +44,14 @@ class SinglyLinkedList
 
     public function items()
     {
-        for ($node = $this->head; !is_null($node); $node = $node->next) {
+        foreach ($this->nodes() as $node)
             yield $node->data; // PHP also makes a sequential key available to caller
+    }
+
+    private function nodes()
+    {
+        for ($node = $this->head; !is_null($node); $node = $node->next) {
+            yield $node;
         }
     }
 
@@ -97,5 +103,65 @@ class SinglyLinkedList
         }
 
         return $count;
+    }
+
+    public function count_if(callable $predicate) : int
+    {
+        $count = 0;
+
+        foreach ($this->items() as $item) {
+            if ($predicate($item)) ++$count;
+        }
+
+        return $count;
+    }
+
+    public function count_item($item) : int
+    {
+        $equals_item = function ($_item) use ($item) { return $_item === $item; };
+        return $this->count_if($equals_item);
+    }
+
+    public function remove_one($item) : mixed
+    {
+        if (is_null($this->head))
+            return null;
+
+        if ($this->first() === $item) {
+            $removed_item = $this->first();
+            $this->head = $this->head->next;
+            return $removed_item;
+        }
+
+        $before_node = $this->find_node_before($item);
+
+        if (is_null($before_node))
+            return null;
+
+        $removed_item = $before_node->next->data;
+        $before_node->next = $before_node->next->next;
+
+        return $removed_item;
+    }
+
+    private function find_node_before($item) : ?ForwardNode
+    {
+        if (is_null($this->head))
+            return null;
+
+        $before = $this->head;
+
+        $nodes = $this->nodes(); // Generator
+        $nodes->next(); // move past head so it will not be returned in foreach
+
+        while ($nodes->valid()) {
+            $node = $nodes->current();
+            if ($node->data === $item)
+                return $before;
+            $before = $node;
+            $nodes->next();
+        }
+
+        return null;
     }
 }

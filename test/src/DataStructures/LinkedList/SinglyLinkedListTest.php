@@ -137,4 +137,64 @@ final class SinglyLinkedListTest extends TestCase
 
         $this->assertEquals(count($arr), $list->count());
     }
+
+    public function testCountItemReturnsCorrectCount() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'b', 'c']);
+        
+        $this->assertEquals(2, $list->count_item('b'));
+    }
+
+    public function testCountIfReturnsCorrectCount() : void
+    {
+        $arr = [0, 1, 2, 3, 4];
+        $list = SinglyLinkedList::from_array($arr);
+
+        $is_odd = function ($item) { return $item % 2; };
+
+        $this->assertEquals(2, $list->count_if($is_odd));
+    }
+
+    public function testRemoveOneRemovesExactlyOneIfItemFound() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'b', 'c']);
+        $item = $list->remove_one('b');
+
+        $this->assertEquals('b', $item);
+        $this->assertEquals(1, $list->count_item('b'));
+    }
+
+    public function testRemoveOneCanRemoveFirstItem() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'c']);
+        $item = $list->remove_one('a');
+
+        $this->assertEquals('a', $item);
+        $this->assertEquals('b', $list->first());
+    }
+
+    public function testRemoveOneCanRemoveLastItem() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'c']);
+        $item = $list->remove_one('c');
+
+        $this->assertEquals('c', $item);
+        $this->assertEquals('b', $list->last());
+    }
+
+    public function testRemoveOneReturnsNullIfItemNotFound() : void
+    {
+        $list = SinglyLinkedList::from_array(['a', 'b', 'c']);
+        $item = $list->remove_one('d');
+
+        $this->assertNull($item);
+    }
+
+    public function testRemoveOneReturnsNullIfListIsEmpty() : void
+    {
+        $list = new SinglyLinkedList();
+        $item = $list->remove_one('a');
+
+        $this->assertNull($item);
+    }
 }
