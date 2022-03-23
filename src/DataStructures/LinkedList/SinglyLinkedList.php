@@ -146,20 +146,21 @@ class SinglyLinkedList
 
     private function find_node_before($item) : ?ForwardNode
     {
-        if (is_null($this->head))
+        // there's no node before an empty list or a list with only 1 node
+        if (is_null($this->head) || is_null($this->head->next))
             return null;
 
         $before = $this->head;
-
         $nodes = $this->nodes(); // Generator
-        $nodes->next(); // move past head so it will not be returned in foreach
-
-        while ($nodes->valid()) {
+        
+        for ($nodes->next(); // move past head so it will not be returned in loop
+             $nodes->valid();
+             $nodes->next())
+        {
             $node = $nodes->current();
             if ($node->data === $item)
                 return $before;
             $before = $node;
-            $nodes->next();
         }
 
         return null;
