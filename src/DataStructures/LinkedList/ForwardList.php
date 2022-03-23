@@ -177,4 +177,14 @@ class ForwardList
 
         return $count;
     }
+
+    public function insert_before($needle, $item) : bool
+    {
+        return false; // TODO
+    }
+
+    public function insert_after($needle, $item) : bool
+    {
+        return false; // TODO
+    }
 }
