@@ -126,28 +126,28 @@ class ForwardList
             return $removed_item;
         }
 
-        $start = $this->find_node_before($item, $this->head);
+        $before = $this->find_node_before($item, $this->head);
 
-        if (is_null($start))
+        if (is_null($before))
             return null;
 
-        $removed_item = $start->next->data;
-        $start->next = $start->next->next;
+        $removed_item = $before->next->data;
+        $before->next = $before->next->next;
 
         return $removed_item;
     }
 
-    // Find the first node after $start which has $item and return the node
+    // Find the first node after $before which has $item and return the node
     // before it
-    private function find_node_before($item, ?ForwardNode $start) : ?ForwardNode
+    private function find_node_before($item, ?ForwardNode $before) : ?ForwardNode
     {
-        // $start is the first possible node we could return
-        if (is_null($start) || is_null($start->next))
+        // $before is the first possible node we could return
+        if (is_null($before) || is_null($before->next))
             return null;
 
-        $before = $start;
+        $before = $before;
 
-        for ($node = $start->next; !is_null($node); $node = $node->next) {
+        for ($node = $before->next; !is_null($node); $node = $node->next) {
             if ($node->data === $item)
                 return $before;
 
@@ -163,15 +163,15 @@ class ForwardList
         $faux_head = new ForwardNode(null, $this->head);
 
         $count = 0;
-        $start = $faux_head;
+        $before = $faux_head;
 
         while (true) {
-            $start = $this->find_node_before($item, $start);
+            $before = $this->find_node_before($item, $before);
 
-            if (is_null($start)) break;
+            if (is_null($before)) break;
 
             ++$count;
-            $start->next = $start->next->next;
+            $before->next = $before->next->next;
         }
 
         // Update head since the previous one may have been removed.
