@@ -18,7 +18,7 @@ class ForwardList
         
         return $list;
     }
-    
+
     public function append($item)
     {
         $node = new ForwardNode($item);
@@ -33,9 +33,8 @@ class ForwardList
     {
         $count = 0;
 
-        foreach ($this->items() as $_) {
+        foreach ($this->items() as $_)
             ++$count;
-        }
 
         return $count;
     }
@@ -44,9 +43,8 @@ class ForwardList
     {
         $count = 0;
 
-        foreach ($this->items() as $item) {
+        foreach ($this->items() as $item)
             if ($predicate($item)) ++$count;
-        }
 
         return $count;
     }
@@ -129,9 +127,8 @@ class ForwardList
 
         $before = $this->find_node_before($item, $faux_head);
 
-        if (is_null($before)) {
+        if (is_null($before))
             return null;
-        }
 
         $data = $before->next->data;
         $before->next = $before->next->next;
