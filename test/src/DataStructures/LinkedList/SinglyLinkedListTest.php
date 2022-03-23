@@ -106,4 +106,20 @@ final class SinglyLinkedListTest extends TestCase
         }
         $this->assertEquals($expected, $actual);
     }
+
+    public function testCanCreateAnArrayFromNonEmptyList(): void
+    {
+        $arr = ['a', 'b', 'c'];
+        $list = SinglyLinkedList::from_array($arr);
+
+        $this->assertEquals($arr, $list->to_array());
+    }
+
+    public function testCanCreateAnArrayFromEmptyList(): void
+    {
+        $arr = [];
+        $list = SinglyLinkedList::from_array($arr);
+
+        $this->assertEquals($arr, $list->to_array());
+    } 
 }

@@ -79,4 +79,12 @@ class SinglyLinkedList
         
         return $list;
     }
+
+    public function to_array()
+    {
+        $arr = [];
+        foreach ($this->items() as $item)
+            $arr[] = $item;
+        return $arr;
+    }
 }
