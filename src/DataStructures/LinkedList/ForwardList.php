@@ -2,7 +2,9 @@
 
 namespace DataStructures\LinkedList;
 
-class SinglyLinkedList
+// A singly-linked list implementation where each node points forward to the
+// next node in the list.
+class ForwardList
 {
     private $head = null;
 
