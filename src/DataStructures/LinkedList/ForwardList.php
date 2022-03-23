@@ -159,18 +159,11 @@ class ForwardList
 
     public function remove_all($item) : int
     {
+        // So we don't need to treat the head node as special, we add one.
+        $faux_head = new ForwardNode(null, $this->head);
+
         $count = 0;
-
-        // first remove all matching items from beginning of the list
-        // so that head points to either null or the first non-matching
-        // item.
-        while (!is_null($this->head) && $this->first() === $item) {
-            ++$count;
-            $this->head = $this->head->next;
-        }
-
-        // $start is either null or the first non-matching node
-        $start = $this->head; 
+        $start = $faux_head;
 
         while (true) {
             $start = $this->find_node_before($item, $start);
@@ -180,6 +173,9 @@ class ForwardList
             ++$count;
             $start->next = $start->next->next;
         }
+
+        // Update head since the previous one may have been removed.
+        $this->head = $faux_head->next;
 
         return $count;
     }
