@@ -70,7 +70,21 @@ class ForwardList
 
     public function insert_before($needle, $item) : bool
     {
-        return false; // TODO
+        // So we don't need to treat the head node as special, we add one.
+        $faux_head = new ForwardNode(null, $this->head);
+
+        $before = $this->find_node_before($needle, $faux_head);
+
+        if (is_null($before))
+            return false;
+
+        $node = new ForwardNode($item, $before->next);
+        $before->next = $node;
+
+        // Update head since the new node may have been inserted there
+        $this->head = $faux_head->next;
+
+        return true;
     }
 
     public function is_empty()
