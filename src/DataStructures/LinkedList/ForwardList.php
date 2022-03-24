@@ -286,8 +286,6 @@ class ForwardList
      * Return the first node in the list which contains the given item.
      * 
      * Strict equality is used for comparisons.
-     *
-     * @internal
      * 
      * @param mixed $item
      * @return ForwardNode|null
@@ -308,8 +306,6 @@ class ForwardList
      * returned, since there is no node before it. If that behavior is
      * undesirable, you can either handle that case separately, or prepend the
      * list with another node.
-     * 
-     * @internal
      *
      * @param mixed $item
      * @param ForwardNode $before the node after which to begin the search.
@@ -331,8 +327,6 @@ class ForwardList
 
     /**
      * Return the last node in the list.
-     *
-     * @internal 
      * 
      * @return ForwardNode|null
      */
@@ -354,8 +348,6 @@ class ForwardList
 
     /**
      * The first node in the list.
-     *
-     * @internal
      * 
      * @var ForwardNode
      */
