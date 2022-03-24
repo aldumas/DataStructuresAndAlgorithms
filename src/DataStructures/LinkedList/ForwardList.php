@@ -310,23 +310,15 @@ class ForwardList
      * list with another node.
      * 
      * @internal
-     * 
-     * @todo make $before required, since we just return null immediately anyway.
      *
      * @param mixed $item
-     * @param ForwardNode|null $before the node after which to begin the search.
+     * @param ForwardNode $before the node after which to begin the search.
      *   If the node immediately after $before contains the item, then $before
      *   will be returned.
      * @return ForwardNode|null
      */
-    private function find_node_before($item, ?ForwardNode $before) : ?ForwardNode
+    private function find_node_before($item, ForwardNode $before) : ?ForwardNode
     {
-        // $before is the first possible node we could return
-        if (is_null($before) || is_null($before->next))
-            return null;
-
-        $before = $before;
-
         for ($node = $before->next; !is_null($node); $node = $node->next) {
             if ($node->data === $item)
                 return $before;
