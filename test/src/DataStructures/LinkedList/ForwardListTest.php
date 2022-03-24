@@ -239,7 +239,7 @@ final class ForwardListTest extends TestCase
         $did_insert = $list->insert_before('a', 'x');
 
         $this->assertTrue($did_insert);
-        this->assertEquals(['x', 'a', 'b', 'c'], $this->to_array());
+        $this->assertEquals(['x', 'a', 'b', 'c'], $list->to_array());
     }
 
     public function testInsertBeforeLastNodeOfList() : void
@@ -249,7 +249,7 @@ final class ForwardListTest extends TestCase
         $did_insert = $list->insert_before('c', 'x');
 
         $this->assertTrue($did_insert);
-        $this->assertEquals(['a', 'b', 'x', 'c'], $this->to_array());
+        $this->assertEquals(['a', 'b', 'x', 'c'], $list->to_array());
     }
 
     public function testInsertAfterDoesNotInsertIntoEmptyList() : void
@@ -268,7 +268,7 @@ final class ForwardListTest extends TestCase
         $did_insert = $list->insert_after('a', 'x');
 
         $this->assertTrue($did_insert);
-        $this->assertEquals(['a', 'x', 'b', 'c'], $this->to_array());
+        $this->assertEquals(['a', 'x', 'b', 'c'], $list->to_array());
     }
 
     public function testInsertAfterCanInsertAfterEndOfList() : void
@@ -278,6 +278,6 @@ final class ForwardListTest extends TestCase
         $did_insert = $list->insert_after('c', 'x');
 
         $this->assertTrue($did_insert);
-        $this->assertEquals(['a', 'b', 'c', 'x'], $this->to_array());
+        $this->assertEquals(['a', 'b', 'c', 'x'], $list->to_array());
     }
 }
