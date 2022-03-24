@@ -63,9 +63,18 @@ class ForwardList
         return $this->head->data;
     }
 
+    // Inserts $item after the first occurrence of $needle in the list.
     public function insert_after($needle, $item) : bool
     {
-        return false; // TODO
+        $needle_node = $this->find_node($needle);
+
+        if (is_null($needle_node))
+            return false;
+
+        $node = new ForwardNode($item, $needle_node->next);
+        $needle_node->next = $node;
+
+        return true;
     }
 
     public function insert_before($needle, $item) : bool
@@ -159,6 +168,15 @@ class ForwardList
         foreach ($this->items() as $item)
             $arr[] = $item;
         return $arr;
+    }
+
+    private function find_node($item)
+    {
+        for ($node = $this->head; !is_null($node); $node = $node->next) {
+            if ($node->data === $item)
+                return $node;
+        }
+        return null;
     }
 
     // Find the first node after $before which has $item and return the node
