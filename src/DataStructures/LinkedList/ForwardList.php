@@ -270,6 +270,33 @@ class ForwardList
     }
 
     /**
+     * Reverse the list.
+     *
+     * @return void
+     */
+    public function reverse() : void
+    {
+        // empty or 1-item lists are trivially reversed
+        if (is_null($this->head) || is_null($this->head->next))
+            return;
+
+        $prev = $this->head;
+        $node = $this->head->next;
+        $this->head->next = null;
+
+        while (!is_null($node)) {
+            $next = $node->next; // save the forward link for iterating
+
+            $node->next = $prev;
+
+            $prev = $node;
+            $node = $next;
+        }
+
+        $this->head = $prev; // $prev now points to the last (now first) node
+    }
+
+    /**
      * Return an array created from the list.
      *
      * @return array

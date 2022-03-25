@@ -280,4 +280,37 @@ final class ForwardListTest extends TestCase
         $this->assertTrue($did_insert);
         $this->assertEquals(['a', 'b', 'c', 'x'], $list->to_array());
     }
+
+    public function testReverseOnEmptyListProducesEmptyList() : void
+    {
+        $list = new ForwardList();
+        $list->reverse();
+
+        $this->assertTrue($list->is_empty());
+    }
+
+    /**
+     * @dataProvider array_provider
+     */
+    public function testReverseOnMultipleItemListReversesTheList($arr): void
+    {
+        $list = ForwardList::from_array($arr);
+
+        $list->reverse();
+        $expected = array_reverse($arr);
+
+        $this->assertEquals($expected, $list->to_array());
+    }
+
+    public function array_provider()
+    {
+        return [
+            [['a']],
+            [['a', 'b']],
+            [['a', 'b', 'c']],
+            [['a', 'b', 'c', 'd']],
+            [['a', 'b', 'c', 'd', 'e']],
+            [[1, 2, 3, 4, 5, 6]]
+        ];
+    }
 }
