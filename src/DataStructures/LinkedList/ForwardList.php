@@ -284,14 +284,14 @@ class ForwardList
         $node = $this->head->next;
         $this->head->next = null;
 
-        while (!is_null($node)) {
+        do {
             $next = $node->next; // save the forward link for iterating
 
             $node->next = $prev;
 
             $prev = $node;
             $node = $next;
-        }
+        } while (!is_null($node));
 
         $this->head = $prev; // $prev now points to the last (now first) node
     }
